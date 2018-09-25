@@ -1,0 +1,23 @@
+{
+  "name": "Carga de Planchones en Vagones",
+  "short_name": "Carga de Planchones",
+  "description": "Carga de Planchones en Vagones",
+  "icons": [
+    {
+      "src": "./images/icon192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./images/icon512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "./?utm=homescreen",
+  "scope": "./",
+  "orientation": "portrait",
+  "theme_color": "#b1b1b1",
+  "background_color": "#b1b1b1"
+}
