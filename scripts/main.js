@@ -288,16 +288,16 @@
             return new Promise((resolve, reject) => {
                 var local = false;
                 vagonesService.getData()
+                    .catch(error => {
+                        local = true;
+                        return vagonesService.getAllDataDB();
+                    })
                     .then((responseData) => {
                         local = false;
                         return Promise.all(responseData.map(vagon => vagonesService.updateData(vagon)))
                         .catch((error) => {
                             throw Error('error Promise.all ' + error.message);
                         });
-                    })
-                    .catch(error => {
-                        local = true;
-                        return vagonesService.getAllDataDB();
                     })
                     .then((data) => {
                         $("#list-vagones").html("");
@@ -324,12 +324,12 @@
                                 .catch((error) => messageError("getVagon " + error.message));
                         });
                     })
-                    .catch(error => messageError("get -" + error.message))
                     .then(() => {
                         $("#cargando").hide();
                         $("#recargar").show();
                         resolve(local);
-                    });
+                    })
+                    .catch(error => reject(error));
             });
         };
         
@@ -410,7 +410,8 @@
                         } else {
                             messageError("Servidor Caido. \n Datos locales cargados")
                         }
-                    });
+                    })
+                    .catch(error => messageError(error.message));
             });
             
             request.onsuccess = function() {
@@ -421,7 +422,8 @@
                         } else {
                             messageError("Servidor Caido. \n Datos locales cargados")
                         }
-                    });
+                    })
+                    .catch(error => messageError(error.message));
             };
         
             request.onerror = function(event) {
